@@ -3,43 +3,50 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Sans-serif;
+    overflow: hidden;
 }
 
-.container{
+.win-container{
     text-align: center;
     padding: 20px;
 }
 
-.container > h2{
-    font-size: 2rem;
+.win-container > h2{
+    font-size: 3rem;
 }
 
-.container #restart-btn{
+.win-container #restart-btn{
     border: none;
     padding: 10px 20px;
-    margin-top: 10px;
+    margin: 10px 0 30px 0;
     background: #ccc;
     border-radius: 10px;
+    font-size: 1.9rem;
 }
 
-.container .grid-items{
+.grid-container{
     display: grid;
-    grid-template-columns: auto auto auto;
-    max-width: 400px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    position: relative;
+    max-width: 500px;
     margin: auto;
-   position: relative;
 }
 
-.container .grid-items .box{
+.grid-container .box{
     width: 100px;
     height: 100px;
     border: 2px solid black;
     margin: 10px auto;
     font-size: 3rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
-@keyframes anim {
+@keyframes anim{
   0%{
     transform: scale(1);
     color: #000;
@@ -52,13 +59,21 @@
 
 #win-border {
   position: absolute;
-  width: 10px;
-  height: 100%;
+  height: 10px;
+  width: 330px;
   background: green;
-  display: none;
-  transition: display 0.5s;
+  transform: translateY(-30px);
+  transition: .4s ease-in-out transform;
+  opacity: 0;
 }
 
 #winner:first-letter{
   font-size: 60px;
+}
+
+
+@media(min-width: 768px){
+    #win-border{
+        display: none;
+    }
 }

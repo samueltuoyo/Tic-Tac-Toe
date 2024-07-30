@@ -14,24 +14,28 @@ function game() {
   if (gameOver) return;
   const boxContent = document.querySelectorAll('.text-box');
   const winScenes = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6]
-  ];
+    [0, 1, 2, 19, 49, 0],
+    [0, 4, 8, 19, 161, 225],
+    [0, 3, 6, -93, 160, 90],
+    [1, 4, 7, 20, 160, 90],
+    [2, 5, 8, 131, 160, 90],
+    [3, 4, 5, 19, 160, 0],
+    [6, 7, 8, 19, 272, 0],
+    [2, 4, 6, 19, 159, 135],
+];
 
   winScenes.forEach((scene) => {
     if (boxContent[scene[0]].innerHTML === boxContent[scene[1]].innerHTML &&
       boxContent[scene[1]].innerHTML === boxContent[scene[2]].innerHTML &&
       boxContent[scene[0]].innerHTML !== '') {
-      winBorder.style.transform = `translate(${scene[0] * 100}px, ${scene[0] * 100}px)`;
-      winBorder.style.display = 'none';
+      winBorder.style.transform = `translate(${scene[3]}px, ${scene[4]}px) rotate(${scene[5]}deg)`;
+      winBorder.style.opacity = "1";
       turnFor.style.animation = 'anim 1s linear infinite';
       boxContent[scene[0]].style.fontSize = '60px';
       boxContent[scene[1]].style.fontSize = '60px';
       boxContent[scene[2]].style.fontSize = '60px';
       turnFor.style.display = 'none';
       winner.innerText = boxContent[scene[0]].innerHTML + ' has won the game';
-      restart.style.display = 'block';
       gameOver = true;
     }
   });
