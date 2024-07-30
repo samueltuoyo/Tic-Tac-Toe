@@ -60,3 +60,17 @@ function game() {
   });
 });
 ;
+
+window.addEventListener('load', () => {
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const source = audioContext.createBufferSource();
+
+fetch('assets/intro.mp3')
+  .then(response => response.arrayBuffer())
+  .then(buffer => audioContext.decodeAudioData(buffer))
+  .then(decodedData => {
+    source.buffer = decodedData;
+    source.connect(audioContext.destination);
+    source.start();
+  });
+ })
