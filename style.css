@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: Sans-serif;
     overflow: hidden;
+    user-select: none;
 }
 
 a{
@@ -28,6 +29,7 @@ a{
     text-align: left;
     margin-bottom: 20px;
     color: purple;
+    font-size: 1.5rem;
 }
 .win-container #restart-btn{
     border: none;
@@ -102,8 +104,8 @@ a{
 
 #main-menu a{
     background: sandybrown;
-    padding: 20px;
-    font-size: 1.7rem;
+    padding: 15px;
+    font-size: 1.5rem;
     border-radius: 10px;
     color: #fff;
     margin-top: 20px;
