@@ -97,6 +97,7 @@ a{
     align-items: center;
     height: 100vh;
     background: steelblue;
+    flex-direction: column;
 }
 
 #main-menu a{
@@ -105,4 +106,12 @@ a{
     font-size: 1.7rem;
     border-radius: 10px;
     color: #fff;
+    margin-top: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+#main-menu a:last-child{
+    background: #ccc;
+    color: #333;
 }
