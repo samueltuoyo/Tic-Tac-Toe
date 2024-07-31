@@ -8,8 +8,7 @@ const turnFor = document.querySelector('.turn-for');
 
 restart.addEventListener('click', () => {
   window.location.reload();
-});
-
+})
 function game() {
   if (gameOver) return;
   const boxContent = document.querySelectorAll('.text-box');
@@ -51,6 +50,8 @@ function game() {
  Array.from(boxes).forEach((box, i) => {
   box.addEventListener('click', (e) => {
     const boxContent = e.target.querySelector('.text-box');
+    const pop = document.getElementById('box-audio');
+    pop.play();
     if (boxContent.innerHTML === '') {
       boxContent.innerHTML = turn;
       turn = turn === 'X' ? 'O' : 'X';
@@ -62,15 +63,40 @@ function game() {
 ;
 
 window.addEventListener('load', () => {
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-const source = audioContext.createBufferSource();
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  let isPlaying = false;
 
-fetch('assets/intro.mp3')
-  .then(response => response.arrayBuffer())
-  .then(buffer => audioContext.decodeAudioData(buffer))
-  .then(decodedData => {
-    source.buffer = decodedData;
-    source.connect(audioContext.destination);
-    source.start();
-  });
- })
+  function playAudio() {
+    const source = audioContext.createBufferSource();
+    fetch('assets/intro.mp3')
+      .then(response => response.arrayBuffer())
+      .then(buffer => audioContext.decodeAudioData(buffer))
+      .then(decodedData => {
+        source.buffer = decodedData;
+        source.connect(audioContext.destination);
+        source.start();
+        isPlaying = true;
+      });
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        audioContext.suspend();
+        isPlaying = false;
+      } else {
+        if (!isPlaying) {
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+          playAudio();
+                          
+        }
+      }
+    });
+  }, { root: null, threshold: 1.0 });
+
+  observer.observe(document.getElementById('game'));
+});
+
+

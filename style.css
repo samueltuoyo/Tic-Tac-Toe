@@ -6,6 +6,15 @@
     overflow: hidden;
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+#game{
+    height: 100vh;
+}
+
 .win-container{
     text-align: center;
     padding: 20px;
@@ -15,6 +24,11 @@
     font-size: 3rem;
 }
 
+.win-container > h4{
+    text-align: left;
+    margin-bottom: 20px;
+    color: purple;
+}
 .win-container #restart-btn{
     border: none;
     padding: 10px 20px;
@@ -45,18 +59,6 @@
     align-items: center;
 }
 
-
-@keyframes anim{
-  0%{
-    transform: scale(1);
-    color: #000;
-  }
-  100%{
-    transform: scale(1.5);
-    color: green;
-  }
-}
-
 #win-border {
   position: absolute;
   height: 10px;
@@ -71,9 +73,36 @@
   font-size: 60px;
 }
 
+@keyframes anim{
+  0%{
+    transform: scale(1);
+    color: #000;
+  }
+  100%{
+    transform: scale(1.5);
+    color: green;
+  }
+}
 
 @media(min-width: 768px){
     #win-border{
         display: none;
     }
+}
+
+/* styles for main menu */
+#main-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: steelblue;
+}
+
+#main-menu a{
+    background: sandybrown;
+    padding: 20px;
+    font-size: 1.7rem;
+    border-radius: 10px;
+    color: #fff;
 }
