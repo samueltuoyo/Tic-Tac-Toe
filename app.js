@@ -27,6 +27,8 @@ function game() {
     if (boxContent[scene[0]].innerHTML === boxContent[scene[1]].innerHTML &&
       boxContent[scene[1]].innerHTML === boxContent[scene[2]].innerHTML &&
       boxContent[scene[0]].innerHTML !== '') {
+      const win = document.getElementById('win-audio');
+      win.play();
       winBorder.style.transform = `translate(${scene[3]}px, ${scene[4]}px) rotate(${scene[5]}deg)`;
       winBorder.style.opacity = "1";
       turnFor.style.animation = 'anim 1s linear infinite';
@@ -41,6 +43,8 @@ function game() {
 
   const isDraw = Array.from(boxContent).every(box => box.innerHTML !== '');
   if (isDraw && !gameOver) {
+    const tieJam = document.getElementById('tie-audio');
+    tieJam.play();
     winner.innerText = 'It\'s a draw!';
     restart.style.display = 'block';
     gameOver = true;
