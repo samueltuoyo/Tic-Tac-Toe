@@ -16,9 +16,17 @@ document.getElementById('vs-player').addEventListener('click', () => {
 document.getElementById('vs-cpu').addEventListener('click', () => {
     vsCPU = true;
     startNewGame();
+    getPlayerNames();
 });
 
+function getPlayerNames(){
+  const prompt_user = prompt('What Shall We Call You')
+  localStorage.setItem('player', prompt_user)
+}
+
 function startNewGame() {
+   localStorage.getItem('player')
+   setItem()
     boxes.forEach(box => box.querySelector('.text-box').textContent = "");
     winBorder.style.opacity = "0";
     winner.innerText = '';
@@ -57,7 +65,12 @@ function game() {
             boxContent[scene[1]].style.fontSize = '60px';
             boxContent[scene[2]].style.fontSize = '60px';
             turnFor.style.display = 'none';
-            winner.innerText = boxContent[scene[0]].innerHTML + ' has won the game';
+            if(boxContent[scene[0]].innerHTML === 'X'){
+              winner.innerText = localStorage.getItem('player');
+            }
+            else{
+              winner.innerText = 'CPU has won'
+            }
             gameOver = true;
         }
     });
@@ -85,7 +98,7 @@ Array.from(boxes).forEach((box) => {
             boxContent.innerHTML = turn;
             turn = turn === 'X' ? 'O' : 'X';
             game();
-            if (!gameOver) turnFor.innerHTML = `Turn for ${turn}`;
+            if (!gameOver) turnFor.innerHTML = `CPU Turn for ${turn}`;
         }
     });
 });
@@ -175,6 +188,6 @@ function cpuMove() {
         pop.play();
         turn = 'X';
         game();
-        if (!gameOver) turnFor.innerHTML = `Turn for ${turn}`;
+        if (!gameOver) turnFor.innerHTML = `${localStorage.getItem('player')} Turn for ${turn}`;
     }
 }
