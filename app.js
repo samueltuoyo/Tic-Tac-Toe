@@ -25,8 +25,6 @@ function getPlayerNames(){
 }
 
 function startNewGame() {
-   localStorage.getItem('player')
-   setItem()
     boxes.forEach(box => box.querySelector('.text-box').textContent = "");
     winBorder.style.opacity = "0";
     winner.innerText = '';
