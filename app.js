@@ -15,25 +15,36 @@ document.getElementById('vs-player').addEventListener('click', () => {
 
 document.getElementById('vs-cpu').addEventListener('click', () => {
     vsCPU = true;
+    getPlayerNames(); // Get player name before starting game
     startNewGame();
-    getPlayerNames();
 });
 
-function getPlayerNames(){
-  const prompt_user = prompt('What Shall We Call You')
-  localStorage.setItem('player', prompt_user)
+function getPlayerNames() {
+    let playerName = '';
+    while (!playerName) {
+        playerName = prompt('What Shall We Call You?'); // Prompt user for name
+        if (playerName) {
+            localStorage.setItem('player', playerName);
+        } else {
+            alert('Please enter a valid name.'); // Alert if the input is empty or canceled
+        }
+    }
 }
 
 function startNewGame() {
     boxes.forEach(box => box.querySelector('.text-box').textContent = "");
     winBorder.style.opacity = "0";
     winner.innerText = '';
-    turn = 'X';
+    turn = vsCPU ? 'O' : 'X'; // If vsCPU is true, CPU starts with 'O'; otherwise, user starts with 'X'
     gameOver = false;
     turnFor.style.display = 'block';
     turnFor.innerHTML = `Turn for ${turn}`;
     turnFor.style.animation = 'none';
     boxes.forEach(box => box.querySelector('.text-box').style.fontSize = 'inherit');
+    
+    if (vsCPU && turn === 'O') {
+        cpuMove(); // Let CPU move first if in vsCPU mode
+    }
 }
 
 function game() {
@@ -63,11 +74,10 @@ function game() {
             boxContent[scene[1]].style.fontSize = '60px';
             boxContent[scene[2]].style.fontSize = '60px';
             turnFor.style.display = 'none';
-            if(boxContent[scene[0]].innerHTML === 'X'){
-              winner.innerText = localStorage.getItem('player');
-            }
-            else{
-              winner.innerText = 'CPU has won'
+            if (boxContent[scene[0]].innerHTML === 'X') {
+                winner.innerText = localStorage.getItem('player');
+            } else {
+                winner.innerText = 'CPU has won';
             }
             gameOver = true;
         }
@@ -83,7 +93,7 @@ function game() {
     }
 
     if (!gameOver && turn === 'O' && vsCPU) {
-        setTimeout(cpuMove, 500); // Slight delay to simulate thinking
+        setTimeout(cpuMove, 500); // Slight delay to simulate CPU thinking
     }
 }
 
@@ -96,7 +106,9 @@ Array.from(boxes).forEach((box) => {
             boxContent.innerHTML = turn;
             turn = turn === 'X' ? 'O' : 'X';
             game();
-            if (!gameOver) turnFor.innerHTML = `CPU Turn for ${turn}`;
+            if (!gameOver && turn === 'O' && vsCPU) {
+                turnFor.innerHTML = 'CPU Turn for O';
+            }
         }
     });
 });
